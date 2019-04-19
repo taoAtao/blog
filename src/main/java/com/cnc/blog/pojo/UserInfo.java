@@ -2,6 +2,8 @@ package com.cnc.blog.pojo;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import com.cnc.blog.annotation.CreateTime;
+import com.cnc.blog.annotation.UpdateTime;
 
 /**
  * @author xiangt
@@ -12,7 +14,9 @@ public class UserInfo {
     private String password;
     private String sex;
     private Date birthday;
+    @CreateTime
     private Timestamp creatTime;
+    @UpdateTime
     private Timestamp updateTime;
 
     public Integer getId() {

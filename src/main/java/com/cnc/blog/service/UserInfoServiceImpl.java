@@ -3,7 +3,7 @@ package com.cnc.blog.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cnc.blog.mapper.IUserInfoMapper;
+import com.cnc.blog.dao.IUserInfoDao;
 import com.cnc.blog.pojo.UserInfo;
 
 /**
@@ -12,18 +12,42 @@ import com.cnc.blog.pojo.UserInfo;
 @Service
 public class UserInfoServiceImpl implements IUserInfoService {
 
-
     @Autowired
-    private IUserInfoMapper userInfoMapper;
+    private IUserInfoDao userInfoDao;
 
-    @Override
-    public UserInfo getUserInfoById() {
-        return userInfoMapper.getUserInfoById();
+    public UserInfo getUserInfoById(Integer id) {
+        try {
+            return userInfoDao.getUserInfoById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public List<UserInfo> listUserInfo() {
-      return userInfoMapper.listUserInfo();
+        try {
+            return userInfoDao.listUserInfo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public int addUser(UserInfo userInfo) {
+        try {
+            userInfoDao.addUserInfo(userInfo);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteUserById(Integer id) {
+        return 0;
     }
 
 }

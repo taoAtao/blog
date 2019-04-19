@@ -9,8 +9,12 @@ import com.cnc.blog.pojo.UserInfo;
 
 public interface IUserInfoService {
 
-    UserInfo getUserInfoById();
+    UserInfo getUserInfoById(Integer id);
 
     List<UserInfo> listUserInfo();
+
+    int addUser(UserInfo userInfo);
+
+    int deleteUserById(Integer id);
 
 }

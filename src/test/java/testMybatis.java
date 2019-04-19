@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,18 @@ public class testMybatis {
 
     @Test
     public void testList() {
-        List<UserInfo> user = userService.listUserInfo();
-        System.out.println(Arrays.toString(user.toArray()));
+//        List<UserInfo> user = userService.listUserInfo();
+//        System.out.println(Arrays.toString(user.toArray()));
 //
-//        UserInfo userInfo = userService.getUserInfoById();
+//        UserInfo userInfo = userService.getUserInfoById(1);
 //        System.out.println(userInfo.toString());
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName("xx");
+        userInfo.setPassword("1111");
+        userInfo.setSex("nan");
+        Date dt =new Date();
+        userInfo.setBirthday((new java.sql.Date(dt.getTime())));
+        System.out.println(userService.addUser(userInfo));
     }
 
 }
