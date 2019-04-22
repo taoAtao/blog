@@ -15,13 +15,15 @@ public class UserInfoServiceImpl implements IUserInfoService {
     @Autowired
     private IUserInfoDao userInfoDao;
 
-    public UserInfo getUserInfoById(Integer id) {
+    @Override
+    public boolean checkUser(String name) {
         try {
-            return userInfoDao.getUserInfoById(id);
+            if (userInfoDao.getIdByName(name) == null)
+                return false;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return true;
     }
 
     @Override
@@ -35,9 +37,23 @@ public class UserInfoServiceImpl implements IUserInfoService {
     }
 
     @Override
-    public int addUser(UserInfo userInfo) {
+    public void addUser(UserInfo userInfo) {
         try {
             userInfoDao.addUserInfo(userInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int deleteUserById(Integer id) {
+        return 0;
+    }
+
+    @Override
+    public int updateUserById(Integer id, UserInfo userInfo) {
+        try {
+            userInfoDao.updateUserInfoById(id, userInfo);
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,8 +62,26 @@ public class UserInfoServiceImpl implements IUserInfoService {
     }
 
     @Override
-    public int deleteUserById(Integer id) {
-        return 0;
+    public String login(String name, String password) {
+        if (userInfoDao.findUserByNameAndPwd(name, password) != null) {
+            return "loginSuccess";
+        }
+        else
+        return "loginFail";
+    }
+
+    @Override
+    public String regist(UserInfo userInfo) {
+        if (checkUser(userInfo.getName())) {
+            return "registFail";
+        } else {
+            try {
+                userInfoDao.addUserInfo(userInfo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "registSuccess";
+        }
     }
 
 }

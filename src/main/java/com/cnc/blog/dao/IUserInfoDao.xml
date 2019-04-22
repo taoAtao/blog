@@ -3,29 +3,50 @@
 
 <mapper namespace="com.cnc.blog.dao.IUserInfoDao">
     <resultMap id="userInfo" type="com.cnc.blog.pojo.UserInfo">
-        <id column="ID" property="id" />
-        <result column="NAME" property="name" />
-        <result column="PASSWORD" property="password" />
-        <result column="SEX" property="sex" />
-        <result column="BIRTHDAY" property="birthday" />
-        <result column="CREAT_TIME" property="creatTime" />
-        <result column="UPDATE_TIME" property="updateTime" />
+        <id column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="SEX" property="sex"/>
+        <result column="BIRTHDAY" property="birthday"/>
+        <result column="CREAT_TIME" property="creatTime"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
     </resultMap>
 
-    <select id="getUserInfoById" parameterType="Integer" resultMap="userInfo">
-        select * from blog_user_info where ID=#{id}
+    <select id="getIdByName" parameterType="String" resultType="Integer">
+        select id from blog_user_info where NAME=#{name}
     </select>
 
     <select id="listUserInfo" resultMap="userInfo">
         select * from blog_user_info
     </select>
 
-    <insert id="addUserInfo" parameterType="com.cnc.blog.pojo.UserInfo">
+    <insert id="addUserInfo" parameterType="com.cnc.blog.pojo.UserInfo" keyProperty="name">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             select LAST_INSERT_ID()
         </selectKey>
-    INSERT INTO blog_user_info(NAME,PASSWORD,SEX,BIRTHDAY) VALUES(#{name},#{password},#{sex},#{birthday});
+        INSERT INTO blog_user_info(NAME,PASSWORD,SEX,BIRTHDAY,CREAT_TIME,UPDATE_TIME) VALUES(#{name},#{password},#{sex},#{birthday},now(),now());
     </insert>
 
+    <update id="updateUserInfoById" parameterType="com.cnc.blog.pojo.UserInfo" >
+        UPDATE blog_user_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userInfo.name!=null">NAME=#{userInfo.name}</if>
+            <if test="userInfo.password!=null">PASSWORD=#{userInfo.password}</if>
+            <if test="userInfo.sex!=null">SEX=#{userInfo.sex}</if>
+            <if test="userInfo.birthday!=null">BIRTHDAY=#{userInfo.birthday}</if>
+        </trim>
+        <!-- updateTime必须更新-->
+        ,UPDATE_TIME=now()
+        WHERE ID=#{id}
+    </update>
+
+    <delete id="deleteUserInfoById" parameterType="Integer">
+        delete from blog_user_info where ID=#{id}
+    </delete>
+
+    <!--注意这里的参数类型是parameterType而不是parameterMap，因为返回的是单个类型  -->
+    <select id="findUserByNameAndPwd"  parameterType="map"  resultType="com.cnc.blog.pojo.UserInfo">
+		select * from blog_user_info where NAME=#{name} and PASSWORD=#{password}
+	</select>
 
 </mapper>

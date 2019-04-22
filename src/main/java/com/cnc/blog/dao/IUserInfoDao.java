@@ -14,10 +14,11 @@ public interface IUserInfoDao {
 
     List<UserInfo> listUserInfo() throws Exception;
 
-    UserInfo getUserInfoById(@Param("id") Integer id) throws Exception;
+    Integer getIdByName(@Param("name") String name) throws Exception;
 
     void addUserInfo(UserInfo userInfo) throws Exception;
 
-    void deleteUserInfoById(@Param("id") Integer id) throws Exception;
+    void updateUserInfoById(@Param("id") Integer id,@Param("userInfo") UserInfo userInfo) throws Exception;
 
+    UserInfo findUserByNameAndPwd(@Param("name")String name, @Param("password")String password);
 }

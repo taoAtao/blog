@@ -9,12 +9,17 @@ import com.cnc.blog.pojo.UserInfo;
 
 public interface IUserInfoService {
 
-    UserInfo getUserInfoById(Integer id);
+    boolean checkUser(String name) throws Exception;
 
     List<UserInfo> listUserInfo();
 
-    int addUser(UserInfo userInfo);
+    void addUser(UserInfo userInfo);
 
     int deleteUserById(Integer id);
 
+    int updateUserById(Integer id,UserInfo userInfo);
+
+    String login(String name, String password);
+
+    String regist(UserInfo userInfo);
 }

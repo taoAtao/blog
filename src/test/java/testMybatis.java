@@ -1,4 +1,3 @@
-import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,9 @@ public class testMybatis {
     @Autowired
     private UserInfoServiceImpl userService;
 
+
     @Test
-    public void testList() {
+    public void testList() throws Exception {
 //        List<UserInfo> user = userService.listUserInfo();
 //        System.out.println(Arrays.toString(user.toArray()));
 //
@@ -26,11 +26,8 @@ public class testMybatis {
 //        System.out.println(userInfo.toString());
         UserInfo userInfo = new UserInfo();
         userInfo.setName("xx");
-        userInfo.setPassword("1111");
-        userInfo.setSex("nan");
-        Date dt =new Date();
-        userInfo.setBirthday((new java.sql.Date(dt.getTime())));
-        System.out.println(userService.addUser(userInfo));
+        userInfo.setPassword("222");
+        System.out.println(userService.checkUser("阿斯达斯的eqwqwe123123"));
     }
 
 }
