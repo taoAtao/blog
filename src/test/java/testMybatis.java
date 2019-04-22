@@ -11,7 +11,7 @@ import com.cnc.blog.service.UserInfoServiceImpl;
  * @author xiangt
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring_mybatis.xml")
+@ContextConfiguration("classpath:applicationContext.xml")
 public class testMybatis {
 
     @Autowired

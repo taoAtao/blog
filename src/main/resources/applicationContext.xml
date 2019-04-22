@@ -17,6 +17,7 @@
                  http://www.springframework.org/schema/tx
                  http://www.springframework.org/schema/tx/spring-tx.xsd">
     <context:annotation-config/>
+
     <context:component-scan base-package="com.cnc.blog"/>
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
@@ -47,4 +48,6 @@
         <property name="basePackage" value="com.cnc.blog.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+
+
 </beans>
